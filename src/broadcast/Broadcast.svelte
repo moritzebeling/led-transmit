@@ -29,7 +29,23 @@
         outputCtx.imageSmoothingEnabled = false;
     }
 
-    function upload(){
+    function selectImage( filename, setMode = true ){
+        if( filename === 'upload' ) return;
+        
+        image = new Image();
+        image.onload = function() {
+            inputCtx.drawImage(image, 0, 0, config.width, config.height);
+        };
+        image.src = `/images/${filename}`;
+        console.log( image );
+
+        isSelected = setMode;
+    }
+    function handleSelectImage( event ){
+        selectImage( event.target.value );
+    }
+
+    function uploadImage(){
         if (!this.files || !this.files[0]) return;
 
         const FR = new FileReader();
@@ -39,13 +55,7 @@
             image = new Image();
             image.src = evt.target.result;
             image.addEventListener("load", () => {
-                
-                // let source = config.width * config.resolution;
-
                 inputCtx.drawImage(image, 0, 0, config.width, config.height);
-                // inputCtx.drawImage( image, 0, 0, xxx, xxx, 0, 0, yyy, yyy );
-                // inputCtx.drawImage(image, 0, 0, source, source, 0, 0, target, target);
-                
             });
         });
         FR.readAsDataURL(this.files[0]);
@@ -88,11 +98,25 @@
         outputCtx.putImageData(outputImageData, 0, 0);
     }
 
+    const defaultImages = [
+        'earth-64.png',
+        'flowers-128.jpg'
+    ];
+    let selectedImage = 'upload';
+
 </script>
 
 {#if !isSelected}
-    <p>Please select an image</p>
-    <input type="file" on:change={upload} accept="image/*" />
+    <p>Please select an image or upload a file</p>
+    <select bind:value={selectedImage} on:change={handleSelectImage}>
+        {#each defaultImages as image}
+            <option value={image}>{image}</option>
+        {/each}
+        <option value='upload'>Upload</option>
+    </select>
+    {#if selectedImage === 'upload'}
+        <input type="file" on:change={uploadImage} accept="image/*" />
+    {/if}
 {:else}
 
     <canvas use:setupCanvas width={config.width*config.resolution} height={config.height*config.resolution} />
