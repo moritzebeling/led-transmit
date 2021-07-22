@@ -1,5 +1,5 @@
 <script>
-	let mode = 'broadcast';
+	let mode = 'record';
 
 	import Broadcast from './broadcast/Broadcast.svelte';
 	import Record from './record/Record.svelte';
