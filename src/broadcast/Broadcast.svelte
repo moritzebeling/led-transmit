@@ -56,7 +56,7 @@
     function start(){
         isStarted = true;
         isBroadcasting = true;
-
+        i = 0;
         outputCtx.clearRect(0, 0, config.width, config.height);
 
         inputImageData = inputCtx.getImageData(0, 0, config.width, config.height);
@@ -85,7 +85,6 @@
     function stop(){
         isBroadcasting = false;
         clearInterval( interval );
-        i = 0;
         outputCtx.putImageData(outputImageData, 0, 0);
     }
 
@@ -112,10 +111,14 @@
             <button on:click={stop}>Stop</button>
         {/if}
 
-        {#if isStarted}
-            <p>R {r} G {g} B {b}</p>
-            <p>{i/4}/{250*250}</p>
-        {/if}
+        <p>
+            {config.width} x {config.height} px = {config.width * config.height} area
+            {#if isStarted}
+                <br />
+                progress {i} / {config.width * config.height}<br />
+                R {r} G {g} B {b}
+            {/if}
+        </p>
 
     </div>
 
