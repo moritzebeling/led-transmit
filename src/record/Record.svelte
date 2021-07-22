@@ -5,8 +5,8 @@
 
     let isRecording = false;
     let video,
-        inputCanvas, inputContext, inputImageData, inputData,
-        outputCtx, outputCanvas, outputImageData, outputData;
+        inputCanvas, inputCtx, inputImageData, inputData,
+        outputCanvas, outputCtx, outputImageData, outputData;
 
     let r = 0;
     let g = 0;
@@ -37,11 +37,12 @@
         inputCanvas.width = config.width;
         inputCanvas.height = config.height;
 
-        inputContext = inputCanvas.getContext('2d');
-        outputCtx = inputCanvas.getContext('2d');
-        inputContext.drawImage(video, 0, 0, width, height);
-        inputContext.mozImageSmoothingEnabled = false;
-        inputContext.imageSmoothingEnabled = false;
+        inputCtx = inputCanvas.getContext('2d');
+        outputCtx = outputCanvas.getContext('2d');
+
+        inputCtx.drawImage(video, 0, 0, width, height);
+        inputCtx.mozImageSmoothingEnabled = false;
+        inputCtx.imageSmoothingEnabled = false;
 
         // video 'play' event listener
         video.addEventListener('play', function() {
@@ -57,15 +58,30 @@
     function tick() {
         pixel();
         setTimeout(tick, config.intrval);
+        if( isRecording ){
+            record();
+        }
+    }
+
+    function record(){
+
+        outputData[i] = r;
+        outputData[i+1] = g;
+        outputData[i+2] = b;
+        outputData[i+3] = 255;
+
+        outputCtx.putImageData(outputImageData, 0, 0);
+
+        i += 4;
     }
 
     function pixel() {
 
         let w = inputCanvas.width / config.resolution;
         let h = inputCanvas.height / config.resolution;
-        inputContext.drawImage(video, 0, 0, w, h);
+        inputCtx.drawImage(video, 0, 0, w, h);
 
-        let image = inputContext.getImageData(0, 0, w, h);
+        let image = inputCtx.getImageData(0, 0, w, h);
         let data = image.data;
 
         let sum = { r: 0, g: 0, b: 0, i: 0 };
@@ -89,14 +105,12 @@
         outputCtx.putImageData(outputImageData, 0, 0);
 
         image.data.set(data);
-        inputContext.putImageData(image, 0, 0);
-        // inputContext.drawImage(inputCanvas, 0, 0, w, h, 0, 0, config.width, config.height);
-        inputContext.drawImage(inputCanvas, 0, 0, w, h, 0, 0, width, height);
+        inputCtx.putImageData(image, 0, 0);
     }
 
     function startRecording(){
+        i = 0;
         isRecording = true;
-
     }
     function stopRecording(){
         isRecording = false;
@@ -110,7 +124,7 @@
 
 <div class="display" style="background-color:rgb({r},{g},{b});"></div>
 
-<canvas bind:this={outputCanvas}></canvas>
+<canvas bind:this={outputCanvas} width={config.width*config.resolution} height={config.height*config.resolution}></canvas>
 
 {#if isRecording}
     <button on:click={stopRecording}>Stop</button>
