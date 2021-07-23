@@ -141,16 +141,36 @@
         hasStarted = true;
         hasEnded = false;
     }
+
+    function handlePlay(){
+        let now = Date.now();
+        console.log( now );
+        play();
+    }
+
     function pause(){
         isRecording = false;
     }
+
     function reset(){
         hasStarted = false;
         i = 0;
         outputCtx.clearRect(0, 0, config.width, config.height);
     }
 
+    function handleKeydown( event ){
+        if( event.keyCode === 32 ){
+            if( isRecording ){
+                pause();
+            } else {
+                handlePlay();        
+            }
+        }
+    }
+
 </script>
+
+<svelte:window on:keydown={handleKeydown}/>
 
 <video class="hidden" bind:this={video} autoplay></video>
 

@@ -130,6 +130,12 @@
         broadcast();
     }
 
+    function handlePlay(){
+        let now = Date.now();
+        console.log( now );
+        play();
+    }
+
     function pause(){
         isBroadcasting = false;
         clearInterval( interval );
@@ -145,7 +151,19 @@
         b = 0;
     }
 
+    function handleKeydown( event ){
+        if( isSelected && event.keyCode === 32 ){
+            if( isBroadcasting ){
+                pause();
+            } else {
+                handlePlay();        
+            }
+        }
+    }
+
 </script>
+
+<svelte:window on:keydown={handleKeydown}/>
 
 {#if !isSelected}
     <main class="select">
@@ -193,7 +211,7 @@
             <div>
                 {#if !isBroadcasting}
                     {#if !hasEnded}
-                        <button on:click={play}>
+                        <button on:click={handlePlay}>
                             {#if hasStarted}
                                 Resume
                             {:else}
