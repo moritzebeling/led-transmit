@@ -120,29 +120,29 @@
 
 </script>
 
-<video bind:this={video} autoplay></video>
+<video class="hidden" bind:this={video} autoplay></video>
 
-<section class="full">
+<main>
 
-    <div class="panel input" style="background-color:rgb({r},{g},{b});">
+    <section class="input" style="background-color:rgb({r},{g},{b});">
         <div>
             <p>R{r} G{g} B{b}</p>
         </div>
-        <div class="main">
+        <div class="stretch">
             <canvas class="input-video" bind:this={inputCanvas}></canvas>
         </div>
         <div>
-            <p></p>
+            <p style="padding: 1rem;">&nbsp;</p>
         </div>
 
-    </div>
+    </section>
 
-    <div class="panel output">
+    <section class="output grey">
         <div>
             <p>{i/4} of {config.width * config.height} frames</p>
         </div>
 
-        <div class="main">
+        <div class="stretch">
             <canvas bind:this={outputCanvas} width={config.width*config.resolution} height={config.height*config.resolution}></canvas>
         </div>
 
@@ -153,41 +153,16 @@
                 <button on:click={startRecording}>Start</button>
             {/if}
         </div>
-    </div>
+    </section>
 
-</section>
+</main>
 
 <style lang="scss">
 
-    video {
-        position: fixed;
-        top: -9999px;
-        left: -9999px;
-    }
-    canvas {
-        background-color: #000;
-    }
-    section {
-    }
-    .panel {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-    .panel > div {
-        padding: 1rem;
-    }
-    .panel.input {
-        justify-content: space-between;
-    }
-    .panel .main {
-        flex: 1;
+    section .stretch {
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    .panel.output {
-        background-color: #222;
     }
 
 </style>

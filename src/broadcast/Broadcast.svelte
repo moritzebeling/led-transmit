@@ -110,7 +110,7 @@
 </script>
 
 {#if !isSelected}
-    <section class="select full">
+    <main class="select">
         <div>
             <p>Please select an image or upload a file</p>
         </div>
@@ -127,24 +127,24 @@
                 <input type="file" on:change={uploadImage} accept="image/*" />
             {/if}
         </div>
-    </section>
+    </main>
 {:else}
-    <section class="full broadcast">
+    <main class="broadcast">
         
-        <div class="panel input">
+        <section class="input grey">
             <div class="info">
                 <p>{config.width}x{config.height} px</p>
             </div>
-            <div class="main">
+            <div class="stretch">
                 <canvas use:setupCanvas width={config.width*config.resolution} height={config.height*config.resolution} />
                 <canvas use:setupOutput width={config.width*config.resolution} height={config.height*config.resolution} />
             </div>
             <div class="info">
                 <p>{i/4} of {config.width * config.height} frames</p>
             </div>
-        </div>
+        </section>
 
-        <div class="panel display" style="background-color:rgb({r},{g},{b});">
+        <section class="display" style="background-color:rgb({r},{g},{b});">
             <div><p>R{r} G{g} B{b}</p></div>
             <div>
                 {#if !isBroadcasting}
@@ -153,52 +153,29 @@
                     <button on:click={stop}>Stop</button>
                 {/if}
             </div>
-        </div>
+        </section>
 
-    </section>
+    </main>
 {/if}
 
 <style>
-	canvas {
-        background-color: black;
-        margin: 0.5rem;
-    }
-    section.select {
+
+    main.select {
         flex-direction: column;
     }
-    section.select > div {
+    main.select > div {
         flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
     }
+
     select, input {
         display: block;
-        width: 50vw;
     }
-    select {
-        background-color: white;
-    }
-    section.broadcast > div {
-        flex: 1;
-    }
-    .panel {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-    }
-    .panel > div {
-        padding: 1rem;
-    }
-    .padding {
-        padding-bottom: 0.5rem;
-    }
-    .panel.input {
-        background-color: #222;
-    }
-    .panel.input .main {
-        flex: 1;
+
+    section.input .stretch {
         display: flex;
         flex-direction: column;
         align-items: center;

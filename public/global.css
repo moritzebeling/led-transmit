@@ -1,3 +1,7 @@
+/*
+reset
+*/
+
 * {
 	margin: 0;
 	padding: 0;
@@ -5,33 +9,78 @@
 	font: inherit;
 	box-sizing: border-box;
 }
-
 a {
 	text-decoration: inherit;
 }
-
-html {
-	font-size: 16px;
-}
-
-body {
-	background-color: black;
-	color: white;
-	font-size: 2rem;
-	font-family: 'IBM Plex Mono', monospace;
-}
-
-html, body {
-	width: 100%;
-	height: 100%;
-}
-
 button {
 	background: transparent;
 	color: inherit;
 	cursor: pointer;
 }
 
+/*
+global
+*/
+
+html {
+	font-size: 16px;
+}
+body {
+	background-color: black;
+	color: white;
+	font-size: 2rem;
+	font-family: 'IBM Plex Mono', monospace;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+/*
+layout
+*/
+
+main,
+nav.main {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+}
+@media (orientation: portrait){
+	main {
+		flex-direction: column;
+	}
+}
+
+section {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+main section > div {
+	padding: 1rem;
+}
+
+/*
+canvas
+*/
+
+canvas {
+	display: block;
+	background-color: black;
+	margin: 0.5rem;
+}
+
+/*
+helpers
+*/
+
+.hidden {
+	position: fixed;
+	top: -9999px;
+	left: -9999px;
+}
 .black {
 	background-color: black;
 	color: white;
@@ -40,11 +89,16 @@ button {
 	background-color: white;
 	color: black;
 }
-.full {
-	width: 100vw;
-	height: 100vh;
-	display: flex;
+.grey {
+	background-color: #222;
 }
+.stretch {
+	flex: 1;
+}
+
+/*
+ui button
+*/
 
 .button:hover,
 button:hover {
@@ -57,23 +111,9 @@ button {
 	color: black;
 }
 
-
-@keyframes blink {
-	0%, 100% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 1;
-	}
-}
-@keyframes blinkText {
-	0%, 100% {
-		color: black;
-	}
-	50% {
-		color: white;
-	}
-}
+/*
+file input
+*/
 
 input[type=file] {
 	color: transparent;
@@ -105,11 +145,17 @@ input[type=file]::before {
 input[type=file]:active {
 	outline: 0;
 }
+
+/*
+dropdown select
+*/
+
 select {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
 	border: 2px solid black;
+	background-color: white;
 	border-radius: 0;
 	padding: 0.5rem 1rem;
 	outline: none;
@@ -135,4 +181,25 @@ select:hover {
 }
 .select-wrapper:hover::before {
 	animation: blink 200ms linear infinite;
+}
+
+/*
+effects
+*/
+
+@keyframes blink {
+	0%, 100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+@keyframes blinkText {
+	0%, 100% {
+		color: black;
+	}
+	50% {
+		color: white;
+	}
 }

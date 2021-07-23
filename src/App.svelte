@@ -11,13 +11,13 @@
 <Router url="{url}">
 
 	<Route path="/">
-		<nav class="full">
-			<div>
+		<nav class="main">
+			<section>
 				<Link to="broadcast">Broadcast</Link>
-			</div>
-			<div class="white">
+			</section>
+			<section class="white">
 				<Link to="record">Record</Link>
-			</div>
+			</section>
 		</nav>
 	</Route>
 
@@ -33,14 +33,13 @@
 			flex-direction: column;
 		}
 	}
-	nav > div {
-		flex: 1;
-		display: flex;
-		padding: 1rem;
+	section {
 		align-items: stretch;
 		justify-content: stretch;
+		flex-direction: unset;
 	}
 	nav :global( a ) {
+		padding: 1rem;
 		background-color: transparent;
 		color: inherit;
 		display: block;
