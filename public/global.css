@@ -17,6 +17,10 @@ button {
 	color: inherit;
 	cursor: pointer;
 }
+ul,
+li {
+	list-style: none;
+}
 
 /*
 global
@@ -144,7 +148,7 @@ input[type=file]:hover::before {
 	animation: blinkText 200ms linear infinite;
 }
 input[type=file]::before {
-	content: 'Click here to select file';
+	content: 'Upload file';
 	color: black;
 	display: inline-block;
 	padding: 0.25em 0.5em;

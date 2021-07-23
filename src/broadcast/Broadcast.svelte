@@ -190,17 +190,25 @@
             <p>Please select an image or upload a file</p>
         </div>
         <div>
-            <div class="select-wrapper">
-                <select bind:value={selectedImage} on:change={handleSelectImage}>
+
+            <ul class="select-image">
+                {#each defaultImages as image}
+                    <li on:click={()=>{ selectImage( image ) }}>
+                        <img src="/images/{image}" alt="{image}" />
+                    </li>
+                {/each}
+            </ul>
+                
+            <!-- <div class="select-wrapper"> -->
+                <!-- <select bind:value={selectedImage} on:change={handleSelectImage}>
                     {#each defaultImages as image}
                         <option value={image}>{image}</option>
                     {/each}
                     <option value='upload'>Upload</option>
-                </select>
-            </div>
-            {#if selectedImage === 'upload'}
-                <input type="file" on:change={uploadImage} accept="image/*" />
-            {/if}
+                </select> -->
+            <!-- </div> -->
+
+            <input type="file" on:change={uploadImage} accept="image/*" />
         </div>
     </main>
 {:else}
@@ -266,5 +274,20 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    ul.select-image {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 2rem;
+    }
+    ul.select-image li {
+        cursor: pointer;
+    }
+    ul.select-image img {
+        width: 128px;
+        height: 128px;
+        display: inline-block;
     }
 </style>
