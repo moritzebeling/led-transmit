@@ -3,6 +3,7 @@
 	import { Router, Link, Route } from "svelte-routing";
 	export let url = "";
 
+	import Helpers from './_Helpers.svelte';
 	import Broadcast from './broadcast/Broadcast.svelte';
 	import Record from './record/Record.svelte';
 
@@ -10,6 +11,8 @@
 
 <Router url="{url}">
 
+	<Helpers />
+	
 	<Route path="/">
 		<nav class="main">
 			<section>

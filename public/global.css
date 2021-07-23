@@ -26,6 +26,10 @@ li {
 global
 */
 
+:root {
+	--full-height: 100vh;
+}
+
 html {
 	font-size: 16px;
 }
@@ -57,7 +61,7 @@ layout
 main,
 nav.main {
 	width: 100vw;
-	height: 100vh;
+	height: var(--full-height);
 	display: flex;
 }
 @media (orientation: portrait){
