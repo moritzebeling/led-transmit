@@ -24,8 +24,11 @@
     let length = 0;
 
     const defaultImages = [
+        'test-32.png',
         'earth-64.png',
-        'flowers-128.jpg'
+        'flowers-128.png',
+        'fabio-256.png',
+        'lenna-512.png',
     ];
     let selectedImage = 'upload';
     let buttonText = 'Transmit';
