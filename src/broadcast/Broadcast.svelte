@@ -145,7 +145,13 @@
         </section>
 
         <section class="display" style="background-color:rgb({r},{g},{b});">
-            <div><p>R{r} G{g} B{b}</p></div>
+            <div>
+                <p>
+                    <span class="minispace">R</span>{r}
+                    <span class="minispace">G</span>{g}
+                    <span class="minispace">B</span>{b}
+                </p>
+            </div>
             <div>
                 {#if !isBroadcasting}
                     <button on:click={start}>Start</button>

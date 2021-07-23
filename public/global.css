@@ -69,7 +69,7 @@ section {
 	justify-content: space-between;
 }
 main section > div {
-	padding: 1em;
+	padding: 0.5em;
 }
 
 /*
@@ -105,6 +105,10 @@ helpers
 .stretch {
 	flex: 1;
 }
+.minispace {
+	display: inline-block;
+	margin-right: 0.2em;
+}
 
 /*
 ui button
@@ -116,7 +120,7 @@ button:hover {
 }
 .button,
 button {
-	padding: 0.5em 1em;
+	padding: 0.25em 0.5em;
 	background-color: white;
 	color: black;
 }
@@ -143,7 +147,7 @@ input[type=file]::before {
 	content: 'Click here to select file';
 	color: black;
 	display: inline-block;
-	padding: 0.5em 1em;
+	padding: 0.25em 0.5em;
 	border: 2px solid black;
 	outline: none;
 	white-space: nowrap;
@@ -167,7 +171,7 @@ select {
 	border: 2px solid black;
 	background-color: white;
 	border-radius: 0;
-	padding: 0.5em 1em;
+	padding: 0.25em 0.5em;
 	outline: none;
 }
 select:hover {

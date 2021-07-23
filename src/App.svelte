@@ -39,7 +39,7 @@
 		flex-direction: unset;
 	}
 	nav :global( a ) {
-		padding: 1em;
+		padding: 0.5em;
 		background-color: transparent;
 		color: inherit;
 		display: block;

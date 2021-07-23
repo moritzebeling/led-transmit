@@ -126,13 +126,17 @@
 
     <section class="input" style="background-color:rgb({r},{g},{b});">
         <div>
-            <p>R{r} G{g} B{b}</p>
+            <p>
+                <span class="minispace">R</span>{r}
+                <span class="minispace">G</span>{g}
+                <span class="minispace">B</span>{b}
+            </p>
         </div>
         <div class="stretch">
             <canvas class="input-video" bind:this={inputCanvas}></canvas>
         </div>
         <div>
-            <p style="padding: 1em;">&nbsp;</p>
+            <p style="padding: 0.5em;">&nbsp;</p>
         </div>
 
     </section>
