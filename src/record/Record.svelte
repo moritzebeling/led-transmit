@@ -236,9 +236,9 @@
                     <button on:click={reset}>Reset</button>
                 {/if}
             {/if}
-            <!-- {#if hasEnded} -->
+            {#if hasEnded}
                 <button on:click={download}>Download</button>
-            <!-- {/if} -->
+            {/if}
         </div>
     </section>
 
