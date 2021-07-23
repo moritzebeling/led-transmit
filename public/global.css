@@ -85,9 +85,6 @@ input[type=file]::before {
 input[type=file]:active {
 	outline: 0;
 }
-input[type=file]:active::before {
-	border-color: yellow;
-}
 select {
 	-moz-appearance: none;
 	-webkit-appearance: none;

@@ -57,7 +57,7 @@
 
     function tick() {
         pixel();
-        setTimeout(tick, config.intrval);
+        setTimeout(tick, config.interval);
         if( isRecording ){
             record();
         }
@@ -93,9 +93,9 @@
             sum.i++;
         }
 
-        r = sum.r / sum.i;
-        g = sum.g / sum.i;
-        b = sum.b / sum.i;
+        r = Math.floor( sum.r / sum.i );
+        g = Math.floor( sum.g / sum.i );
+        b = Math.floor( sum.b / sum.i );
 
         outputData[i] = r;
         outputData[i+1] = g;
@@ -120,27 +120,73 @@
 
 <video bind:this={video} autoplay></video>
 
-<canvas bind:this={inputCanvas}></canvas>
+<section class="full">
 
-<div class="display" style="background-color:rgb({r},{g},{b});"></div>
+    <div class="panel input" style="background-color:rgb({r},{g},{b});">
+        
+        <div>
+            <p>R{r} G{g} B{b}</p>
+        </div>
+        <div class="main">
+            <canvas class="input-video" bind:this={inputCanvas}></canvas>
+        </div>
+        <div>
+            <p></p>
+        </div>
 
-<canvas bind:this={outputCanvas} width={config.width*config.resolution} height={config.height*config.resolution}></canvas>
+    </div>
 
-{#if isRecording}
-    <button on:click={stopRecording}>Stop</button>
-{:else}
-    <button on:click={startRecording}>Start</button>
-{/if}
+    <div class="panel output">
+        <div>
+            <p>{i/4} of {config.width * config.height} frames</p>
+        </div>
+
+        <div class="main">
+            <canvas bind:this={outputCanvas} width={config.width*config.resolution} height={config.height*config.resolution}></canvas>
+        </div>
+
+        <div>
+            {#if isRecording}
+                <button on:click={stopRecording}>Stop</button>
+            {:else}
+                <button on:click={startRecording}>Start</button>
+            {/if}
+        </div>
+    </div>
+
+</section>
 
 <style lang="scss">
 
-    video, canvas, .display {
-        border: 1px solid #ddd;
-        display: inline-block;
+    video {
+        position: fixed;
+        top: -9999px;
+        left: -9999px;
     }
-    .display {
-        height: 250px;
-        width: 250px;
+    canvas {
+        background-color: #000;
+    }
+    section {
+    }
+    .panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .panel > div {
+        padding: 1rem;
+    }
+    .panel.input {
+        justify-content: space-between;
+    }
+    .panel .main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .panel.output {
+        background-color: #222;
     }
 
 </style>

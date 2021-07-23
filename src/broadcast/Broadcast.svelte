@@ -140,7 +140,7 @@
                 <canvas use:setupOutput width={config.width*config.resolution} height={config.height*config.resolution} />
             </div>
             <div class="info">
-                <p class="padding">{i/4} of {config.width * config.height} frames</p>
+                <p>{i/4} of {config.width * config.height} frames</p>
             </div>
         </div>
 
@@ -179,9 +179,6 @@
     }
     select {
         background-color: white;
-    }
-    section.broadcast {
-        
     }
     section.broadcast > div {
         flex: 1;
