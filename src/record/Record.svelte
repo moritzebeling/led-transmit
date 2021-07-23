@@ -3,10 +3,12 @@
     import { onMount } from 'svelte';
     import { config } from '../config.js';
 
-    let isRecording = false;
     let video,
         inputCanvas, inputCtx, inputImageData, inputData,
         outputCanvas, outputCtx, outputImageData, outputData;
+
+    let isRecording = false;
+    let isStarted = false;
 
     let r = 0;
     let g = 0;
@@ -123,7 +125,6 @@
 <section class="full">
 
     <div class="panel input" style="background-color:rgb({r},{g},{b});">
-        
         <div>
             <p>R{r} G{g} B{b}</p>
         </div>
