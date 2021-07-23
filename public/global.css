@@ -6,6 +6,10 @@
 	box-sizing: border-box;
 }
 
+a {
+	text-decoration: inherit;
+}
+
 html {
 	font-size: 16px;
 }

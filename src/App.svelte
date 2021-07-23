@@ -1,33 +1,31 @@
 <script>
-
-	let mode = 'record';
+	
+	import { Router, Link, Route } from "svelte-routing";
+	export let url = "";
 
 	import Broadcast from './broadcast/Broadcast.svelte';
 	import Record from './record/Record.svelte';
 
 </script>
 
-{#if mode === 'broadcast'}
+<Router url="{url}">
 
-	<Broadcast />
+	<Route path="/">
+		<nav class="full">
+			<div>
+				<Link to="broadcast">Broadcast</Link>
+			</div>
+			<div class="white">
+				<Link to="record">Record</Link>
+			</div>
+		</nav>
+	</Route>
 
-{:else if mode === 'record'}
+	<Route path="broadcast" component="{Broadcast}" />
+	<Route path="record" component="{Record}" />
 
-	<Record />
-
-{:else}
-
-	<nav class="full">
-		<div>
-			<button on:click={()=>{ mode = 'broadcast' }}>Broadcast</button>
-		</div>
-		<div class="white">
-			<button on:click={()=>{ mode = 'record' }}>Record</button>
-		</div>
-	</nav>
-
-{/if}
-
+</Router>
+	
 <style>
 
 	@media (orientation: portrait) {
@@ -38,14 +36,17 @@
 	nav > div {
 		flex: 1;
 		display: flex;
+		padding: 1rem;
+		align-items: stretch;
+		justify-content: stretch;
 	}
-	button {
-		display: block;
-		flex: 1;
+	nav :global( a ) {
 		background-color: transparent;
 		color: inherit;
+		display: block;
+		width: 100%;
 	}
-	button:hover {
+	nav :global( a:hover ) {
 		animation: blink 200ms linear infinite;
 	}
 
