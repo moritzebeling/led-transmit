@@ -132,19 +132,19 @@
     <main class="broadcast">
         
         <section class="input grey">
-            <div class="info">
-                <p>{config.width}x{config.height} px</p>
+            <div>
+                <p>{i/4} of {config.width * config.height} frames</p>
             </div>
             <div class="stretch">
                 <canvas use:setupCanvas width={config.width*config.resolution} height={config.height*config.resolution} />
                 <canvas use:setupOutput width={config.width*config.resolution} height={config.height*config.resolution} />
             </div>
-            <div class="info">
-                <p>{i/4} of {config.width * config.height} frames</p>
+            <div>
+                <p style="padding: 0.5em;">&nbsp;</p>
             </div>
         </section>
 
-        <section class="display" style="background-color:rgb({r},{g},{b});">
+        <section style="background-color:rgb({r},{g},{b});">
             <div>
                 <p>
                     <span class="minispace">R</span>{r}

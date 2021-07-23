@@ -124,7 +124,7 @@
 
 <main>
 
-    <section class="input" style="background-color:rgb({r},{g},{b});">
+    <section style="background-color:rgb({r},{g},{b});">
         <div>
             <p>
                 <span class="minispace">R</span>{r}
@@ -141,7 +141,7 @@
 
     </section>
 
-    <section class="output grey">
+    <section class="grey">
         <div>
             <p>{i/4} of {config.width * config.height} frames</p>
         </div>

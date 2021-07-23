@@ -79,7 +79,7 @@ canvas
 canvas {
 	display: block;
 	background-color: black;
-	margin: 0.5em;
+	margin: 0.25em;
 }
 
 /*
@@ -107,7 +107,7 @@ helpers
 }
 .minispace {
 	display: inline-block;
-	margin-right: 0.2em;
+	margin-right: 0.1em;
 }
 
 /*
@@ -154,7 +154,7 @@ input[type=file]::before {
 	-webkit-user-select: none;
 	cursor: pointer;
 	width: 100%;
-	background-color: white;
+	background-color: #444;
 }
 input[type=file]:active {
 	outline: 0;
@@ -183,12 +183,12 @@ select:hover {
 .select-wrapper::before {
 	position: absolute;
 	right: 0.7em;
-	top: 0.35em;
-	border-right: 3px solid black;
-	border-bottom: 3px solid black;
+	top: 0.45em;
+	border-right: 2.5px solid black;
+	border-bottom: 2.5px solid black;
 	content: '';
-	width: 1.5em;
-	height: 1.5em;
+	width: 0.6em;
+	height: 0.6em;
 	display: block;
 	z-index: 10;
 	transform: rotate(45deg);
