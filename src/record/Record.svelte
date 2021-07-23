@@ -56,6 +56,8 @@
         inputCtx.drawImage(video, 0, 0, width, height);
         inputCtx.mozImageSmoothingEnabled = false;
         inputCtx.imageSmoothingEnabled = false;
+        outputCtx.mozImageSmoothingEnabled = false;
+        outputCtx.imageSmoothingEnabled = false;
 
         // video 'play' event listener
         video.addEventListener('play', function() {
@@ -89,7 +91,7 @@
 
         let w = inputCanvas.width / config.resolution;
         let h = inputCanvas.height / config.resolution;
-        inputCtx.drawImage(video, 0, 0, w, h);
+        inputCtx.drawImage(video, 0, 0, w * config.resolution, h * config.resolution);
 
         let image = inputCtx.getImageData(0, 0, w, h);
         let data = image.data;
@@ -208,7 +210,7 @@
             </p>
         </div>
         <div class="stretch">
-            <canvas class="input-video" bind:this={inputCanvas}></canvas>
+            <canvas class="input-video" width={config.width} height={config.height} style="width:{config.width*config.resolution}px;height:{config.height*config.resolution}px;" bind:this={inputCanvas}></canvas>
         </div>
         <div>
             <p style="padding: 0.5em;">&nbsp;</p>
@@ -222,7 +224,7 @@
         </div>
 
         <div class="stretch">
-            <canvas bind:this={outputCanvas} width={config.width*config.resolution} height={config.height*config.resolution}></canvas>
+            <canvas bind:this={outputCanvas} width={config.width} height={config.height} style="width:{config.width*config.resolution}px;height:{config.height*config.resolution}px;"></canvas>
         </div>
 
         <div>
