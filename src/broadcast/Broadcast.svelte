@@ -3,6 +3,10 @@
     import { onMount } from 'svelte';
     import { config } from '../config.js';
 
+    /*
+    variables
+    */
+
     let isSelected = false;
     let isBroadcasting = false;
     let isStarted = false;
@@ -18,6 +22,20 @@
     let i = 0;
     let length = 0;
 
+    const defaultImages = [
+        'earth-64.png',
+        'flowers-128.jpg'
+    ];
+    let selectedImage = 'upload';
+
+    /*
+    setup
+    */
+
+    onMount(()=>{
+        // selectImage( defaultImages[1] );
+    });
+
     function setupCanvas( element ){
         inputCtx = element.getContext("2d");
         inputCtx.mozImageSmoothingEnabled = false;
@@ -29,21 +47,9 @@
         outputCtx.imageSmoothingEnabled = false;
     }
 
-    function selectImage( filename, setMode = true ){
-        if( filename === 'upload' ) return;
-        
-        image = new Image();
-        image.onload = function() {
-            inputCtx.drawImage(image, 0, 0, config.width, config.height);
-        };
-        image.src = `/images/${filename}`;
-        console.log( image );
-
-        isSelected = setMode;
-    }
-    function handleSelectImage( event ){
-        selectImage( event.target.value );
-    }
+    /*
+    select image
+    */
 
     function uploadImage(){
         if (!this.files || !this.files[0]) return;
@@ -63,18 +69,27 @@
         isSelected = true;
     }
 
-    function start(){
-        isStarted = true;
-        isBroadcasting = true;
-        i = 0;
-        outputCtx.clearRect(0, 0, config.width, config.height);
+    function selectImage( filename, setMode = true ){
+        if( filename === 'upload' ) return;
+        
+        image = new Image();
+        image.onload = function() {
+            inputCtx.drawImage(image, 0, 0, config.width, config.height);
+        };
+        image.src = `/images/${filename}`;
+        console.log( image );
 
-        inputImageData = inputCtx.getImageData(0, 0, config.width, config.height);
-        inputData = inputImageData.data;
+        isSelected = setMode;
+    }
+    function handleSelectImage( event ){
+        selectImage( event.target.value );
+    }
 
-        outputImageData = outputCtx.getImageData(0, 0, config.width, config.height);
-        outputData = outputImageData.data;
+    /*
+    broadcasting
+    */
 
+    function broadcast(){
         interval = setInterval(() => {
             
             r = inputData[i];
@@ -92,20 +107,37 @@
         }, 100);
     }
 
-    function stop(){
+    /*
+    controls
+    */
+
+    function play(){
+        isStarted = true;
+        isBroadcasting = true;
+    
+        inputImageData = inputCtx.getImageData(0, 0, config.width, config.height);
+        inputData = inputImageData.data;
+
+        outputImageData = outputCtx.getImageData(0, 0, config.width, config.height);
+        outputData = outputImageData.data;
+
+        broadcast();
+    }
+
+    function pause(){
         isBroadcasting = false;
         clearInterval( interval );
         outputCtx.putImageData(outputImageData, 0, 0);
     }
 
-    const defaultImages = [
-        'earth-64.png',
-        'flowers-128.jpg'
-    ];
-    let selectedImage = 'upload';
-    onMount(()=>{
-        // selectImage( defaultImages[1] );
-    });
+    function reset(){
+        i = 0;
+        outputCtx.clearRect(0, 0, config.width, config.height);
+        isStarted = false;
+        r = 0;
+        g = 0;
+        b = 0;
+    }
 
 </script>
 
@@ -154,9 +186,18 @@
             </div>
             <div>
                 {#if !isBroadcasting}
-                    <button on:click={start}>Start</button>
+                    <button on:click={play}>
+                        {#if isStarted}
+                            Resume
+                        {:else}
+                            Transmit
+                        {/if}
+                    </button>
+                    {#if isStarted}
+                        <button on:click={reset}>Reset</button>
+                    {/if}
                 {:else}
-                    <button on:click={stop}>Stop</button>
+                    <button on:click={pause}>Stop</button>
                 {/if}
             </div>
         </section>

@@ -3,6 +3,10 @@
     import { onMount } from 'svelte';
     import { config } from '../config.js';
 
+    /*
+    variables
+    */
+
     let video,
         inputCanvas, inputCtx, inputImageData, inputData,
         outputCanvas, outputCtx, outputImageData, outputData;
@@ -18,6 +22,10 @@
 
     let width = 16;
     let height = 16;
+
+    /*
+    setup
+    */
     
     onMount(()=>{
 
@@ -57,24 +65,16 @@
 
     });
 
+    /*
+    update video
+    */
+
     function tick() {
         pixel();
         setTimeout(tick, config.interval);
         if( isRecording ){
             record();
         }
-    }
-
-    function record(){
-
-        outputData[i] = r;
-        outputData[i+1] = g;
-        outputData[i+2] = b;
-        outputData[i+3] = 255;
-
-        outputCtx.putImageData(outputImageData, 0, 0);
-
-        i += 4;
     }
 
     function pixel() {
@@ -110,12 +110,37 @@
         inputCtx.putImageData(image, 0, 0);
     }
 
-    function startRecording(){
-        i = 0;
-        isRecording = true;
+    /*
+    record
+    */
+
+    function record(){
+
+        outputData[i] = r;
+        outputData[i+1] = g;
+        outputData[i+2] = b;
+        outputData[i+3] = 255;
+
+        outputCtx.putImageData(outputImageData, 0, 0);
+
+        i += 4;
     }
-    function stopRecording(){
+
+    /*
+    controls
+    */
+
+    function play(){
+        isRecording = true;
+        isStarted = true;
+    }
+    function pause(){
         isRecording = false;
+    }
+    function reset(){
+        isStarted = false;
+        i = 0;
+        outputCtx.clearRect(0, 0, config.width, config.height);
     }
 
 </script>
@@ -152,9 +177,18 @@
 
         <div>
             {#if isRecording}
-                <button on:click={stopRecording}>Stop</button>
+                <button on:click={pause}>Stop</button>
             {:else}
-                <button on:click={startRecording}>Start</button>
+                <button on:click={play}>
+                    {#if isStarted}
+                        Resume
+                    {:else}
+                        Record
+                    {/if}
+                </button>
+                {#if isStarted}
+                    <button on:click={reset}>Reset</button>
+                {/if}
             {/if}
         </div>
     </section>
