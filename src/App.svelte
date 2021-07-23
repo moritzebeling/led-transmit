@@ -1,6 +1,6 @@
 <script>
 
-	let mode = false;
+	let mode = 'broadcast';
 
 	import Broadcast from './broadcast/Broadcast.svelte';
 	import Record from './record/Record.svelte';
@@ -17,7 +17,7 @@
 
 {:else}
 
-	<nav>
+	<nav class="full">
 		<div>
 			<button on:click={()=>{ mode = 'broadcast' }}>Broadcast</button>
 		</div>
@@ -32,8 +32,6 @@
 
 	nav {
 		display: flex;
-		width: 100vw;
-		height: 100vh;
 	}
 	@media (orientation: portrait) {
 		nav {

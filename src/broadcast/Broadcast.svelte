@@ -107,16 +107,24 @@
 </script>
 
 {#if !isSelected}
-    <p>Please select an image or upload a file</p>
-    <select bind:value={selectedImage} on:change={handleSelectImage}>
-        {#each defaultImages as image}
-            <option value={image}>{image}</option>
-        {/each}
-        <option value='upload'>Upload</option>
-    </select>
-    {#if selectedImage === 'upload'}
-        <input type="file" on:change={uploadImage} accept="image/*" />
-    {/if}
+    <section class="select full">
+        <div>
+            <p>Please select an image or upload a file</p>
+        </div>
+        <div>
+            <div class="select-wrapper">
+                <select bind:value={selectedImage} on:change={handleSelectImage}>
+                    {#each defaultImages as image}
+                        <option value={image}>{image}</option>
+                    {/each}
+                    <option value='upload'>Upload</option>
+                </select>
+            </div>
+            {#if selectedImage === 'upload'}
+                <input type="file" on:change={uploadImage} accept="image/*" />
+            {/if}
+        </div>
+    </section>
 {:else}
 
     <canvas use:setupCanvas width={config.width*config.resolution} height={config.height*config.resolution} />
@@ -150,12 +158,30 @@
 
 <style>
 	canvas {
-        border: 1px solid #ddd;
+        border: 1px solid #333;
     }
     .display {
-        border: 1px solid #ddd;
+        border: 1px solid #333;
         width: 250px;
         height: 250px;
         display: inline-block;
+    }
+    section {
+        display: flex;
+        flex-direction: column;
+    }
+    section > div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    select, input {
+        display: block;
+        width: 50vw;
+    }
+    select {
+        background-color: white;
     }
 </style>
