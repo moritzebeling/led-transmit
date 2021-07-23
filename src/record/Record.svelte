@@ -173,6 +173,14 @@
         outputCtx.clearRect(0, 0, config.width, config.height);
     }
 
+    function download(){
+        const a = document.createElement('a');
+        a.href = outputCanvas.toDataURL('image/png');
+        a.download = "received-transmission.png";
+        a.click();
+        document.body.removeChild(a);
+    }
+
     function handleKeydown( event ){
         if( event.keyCode === 32 ){
             if( isRecording ){
@@ -228,6 +236,9 @@
                     <button on:click={reset}>Reset</button>
                 {/if}
             {/if}
+            <!-- {#if hasEnded} -->
+                <button on:click={download}>Download</button>
+            <!-- {/if} -->
         </div>
     </section>
 
