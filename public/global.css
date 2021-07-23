@@ -116,7 +116,7 @@ ui button
 
 .button:hover,
 button:hover {
-	animation: blinkText 200ms linear infinite;
+	/* animation: blinkText 200ms linear infinite; */
 }
 .button,
 button {

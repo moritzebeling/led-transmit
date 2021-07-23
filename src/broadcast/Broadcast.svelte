@@ -28,6 +28,7 @@
         'flowers-128.jpg'
     ];
     let selectedImage = 'upload';
+    let buttonText = 'Transmit';
 
     /*
     setup
@@ -131,18 +132,25 @@
     }
 
     function handlePlay(){
-        let now = Date.now();
-        console.log( now );
-        play();
+        const now = Date.now();
+        const startAt = Math.round( ( now + 1000 ) / 2000 ) * 2000;
+        const startIn = startAt - now;
+        buttonText = "Wait...";
+        setTimeout(() => {
+            play();
+        }, startIn);
+        console.log( now, startAt, startIn );
     }
 
     function pause(){
+        buttonText = 'Resume';
         isBroadcasting = false;
         clearInterval( interval );
         outputCtx.putImageData(outputImageData, 0, 0);
     }
 
     function reset(){
+        buttonText = 'Transmit';
         i = 0;
         outputCtx.clearRect(0, 0, config.width, config.height);
         hasStarted = false;
@@ -211,13 +219,7 @@
             <div>
                 {#if !isBroadcasting}
                     {#if !hasEnded}
-                        <button on:click={handlePlay}>
-                            {#if hasStarted}
-                                Resume
-                            {:else}
-                                Transmit
-                            {/if}
-                        </button>
+                        <button on:click={handlePlay}>{buttonText}</button>
                     {/if}
                     {#if hasStarted}
                         <button on:click={reset}>Reset</button>

@@ -24,6 +24,8 @@
     let width = 16;
     let height = 16;
 
+    let buttonText = "Record";
+
     /*
     setup
     */
@@ -143,16 +145,22 @@
     }
 
     function handlePlay(){
-        let now = Date.now();
-        console.log( now );
-        play();
+        buttonText = "Wait...";
+        const now = Date.now();
+        const startAt = Math.round( ( now + 1000 ) / 2000 ) * 2000;
+        const startIn = startAt - now;
+        setTimeout(() => {
+            play();
+        }, startIn);
     }
 
     function pause(){
         isRecording = false;
+        buttonText = 'Resume';
     }
 
     function reset(){
+        buttonText = 'Record';
         hasStarted = false;
         i = 0;
         outputCtx.clearRect(0, 0, config.width, config.height);
@@ -207,13 +215,7 @@
                 <button on:click={pause}>Stop</button>
             {:else}
                 {#if !hasEnded}
-                    <button on:click={play}>
-                        {#if hasStarted}
-                            Resume
-                        {:else}
-                            Record
-                        {/if}
-                    </button>
+                    <button on:click={handlePlay}>{buttonText}</button>
                 {/if}
                 {#if hasStarted}
                     <button on:click={reset}>Reset</button>
