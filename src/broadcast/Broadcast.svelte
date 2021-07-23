@@ -91,6 +91,11 @@
     broadcasting
     */
 
+    function getProgress(){
+        let progress = Math.round( i / outputData.length * 1000 ) / 10;
+        document.title = `Transmitting ${progress}%`;
+    }
+
     function broadcast(){
         interval = setInterval(() => {
             
@@ -106,6 +111,9 @@
             outputCtx.putImageData(outputImageData, 0, 0);
 
             i += 4;
+
+            getProgress();
+            
             if( i > outputData.length ){
                 clearInterval( interval );
                 hasEnded = true;

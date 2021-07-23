@@ -122,6 +122,11 @@
     record
     */
 
+    function getProgress(){
+        let progress = Math.round( i / outputData.length * 1000 ) / 10;
+        document.title = `Recording ${progress}%`;
+    }
+
     function record(){
 
         outputData[i] = r;
@@ -132,6 +137,8 @@
         outputCtx.putImageData(outputImageData, 0, 0);
 
         i += 4;
+
+        getProgress();
     }
 
     /*
