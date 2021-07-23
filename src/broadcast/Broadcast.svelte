@@ -103,6 +103,9 @@
         'flowers-128.jpg'
     ];
     let selectedImage = 'upload';
+    onMount(()=>{
+        // selectImage( defaultImages[1] );
+    });
 
 </script>
 
@@ -126,51 +129,44 @@
         </div>
     </section>
 {:else}
+    <section class="full broadcast">
+        
+        <div class="panel input">
+            <div class="info">
+                <p>{config.width}x{config.height} px</p>
+            </div>
+            <div class="main">
+                <canvas use:setupCanvas width={config.width*config.resolution} height={config.height*config.resolution} />
+                <canvas use:setupOutput width={config.width*config.resolution} height={config.height*config.resolution} />
+            </div>
+            <div class="info">
+                <p class="padding">{i/4} of {config.width * config.height} frames</p>
+            </div>
+        </div>
 
-    <canvas use:setupCanvas width={config.width*config.resolution} height={config.height*config.resolution} />
-    <canvas use:setupOutput width={config.width*config.resolution} height={config.height*config.resolution} />
+        <div class="panel display" style="background-color:rgb({r},{g},{b});">
+            <div><p>R{r} G{g} B{b}</p></div>
+            <div>
+                {#if !isBroadcasting}
+                    <button on:click={start}>Start</button>
+                {:else}
+                    <button on:click={stop}>Stop</button>
+                {/if}
+            </div>
+        </div>
 
-    {#if isStarted}
-        <div class="display" style="background-color:rgb({r},{g},{b});"></div>
-    {/if}
-
-    <div>
-
-        {#if !isBroadcasting}
-            <button on:click={start}>Start</button>
-            <button on:click={()=>{ isSelected = false }}>Remove image</button>
-        {:else}
-            <button on:click={stop}>Stop</button>
-        {/if}
-
-        <p>
-            {config.width} x {config.height} px = {config.width * config.height} area
-            {#if isStarted}
-                <br />
-                progress {i} / {config.width * config.height}<br />
-                R {r} G {g} B {b}
-            {/if}
-        </p>
-
-    </div>
-
+    </section>
 {/if}
 
 <style>
 	canvas {
-        border: 1px solid #333;
+        background-color: black;
+        margin: 0.5rem;
     }
-    .display {
-        border: 1px solid #333;
-        width: 250px;
-        height: 250px;
-        display: inline-block;
-    }
-    section {
-        display: flex;
+    section.select {
         flex-direction: column;
     }
-    section > div {
+    section.select > div {
         flex: 1;
         display: flex;
         justify-content: center;
@@ -183,5 +179,32 @@
     }
     select {
         background-color: white;
+    }
+    section.broadcast {
+        
+    }
+    section.broadcast > div {
+        flex: 1;
+    }
+    .panel {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .panel > div {
+        padding: 1rem;
+    }
+    .padding {
+        padding-bottom: 0.5rem;
+    }
+    .panel.input {
+        background-color: #222;
+    }
+    .panel.input .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>

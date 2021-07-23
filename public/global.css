@@ -39,11 +39,14 @@ button {
 .full {
 	width: 100vw;
 	height: 100vh;
+	display: flex;
 }
 
 .button,
 button {
-	border: 2px solid currentColor;
+	padding: 0.5rem 1rem;
+	background-color: white;
+	color: black;
 }
 
 @keyframes blink {
@@ -67,7 +70,7 @@ input[type=file]::-webkit-file-upload-button {
 	visibility: hidden;
 }
 input[type=file]::before {
-	content: 'Click here';
+	content: 'Click here to select file';
 	color: black;
 	display: inline-block;
 	padding: 0.5rem 1rem;

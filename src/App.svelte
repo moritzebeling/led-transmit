@@ -1,6 +1,6 @@
 <script>
 
-	let mode = 'broadcast';
+	let mode = false;
 
 	import Broadcast from './broadcast/Broadcast.svelte';
 	import Record from './record/Record.svelte';
@@ -30,9 +30,6 @@
 
 <style>
 
-	nav {
-		display: flex;
-	}
 	@media (orientation: portrait) {
 		nav {
 			flex-direction: column;
@@ -45,6 +42,8 @@
 	button {
 		display: block;
 		flex: 1;
+		background-color: transparent;
+		color: inherit;
 	}
 	button:hover {
 		animation: blink 200ms linear infinite;
