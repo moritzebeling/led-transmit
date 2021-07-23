@@ -28,8 +28,18 @@ html {
 body {
 	background-color: black;
 	color: white;
-	font-size: 2rem;
 	font-family: 'IBM Plex Mono', monospace;
+	font-size: 1rem;
+}
+@media (min-width: 800px){
+	body {
+		font-size: 1.4rem;
+	}
+}
+@media (min-width: 1200px){
+	body {
+		font-size: 1.8rem;
+	}
 }
 html, body {
 	width: 100%;
@@ -59,7 +69,7 @@ section {
 	justify-content: space-between;
 }
 main section > div {
-	padding: 1rem;
+	padding: 1em;
 }
 
 /*
@@ -69,7 +79,7 @@ canvas
 canvas {
 	display: block;
 	background-color: black;
-	margin: 0.5rem;
+	margin: 0.5em;
 }
 
 /*
@@ -106,7 +116,7 @@ button:hover {
 }
 .button,
 button {
-	padding: 0.5rem 1rem;
+	padding: 0.5em 1em;
 	background-color: white;
 	color: black;
 }
@@ -133,7 +143,7 @@ input[type=file]::before {
 	content: 'Click here to select file';
 	color: black;
 	display: inline-block;
-	padding: 0.5rem 1rem;
+	padding: 0.5em 1em;
 	border: 2px solid black;
 	outline: none;
 	white-space: nowrap;
@@ -157,7 +167,7 @@ select {
 	border: 2px solid black;
 	background-color: white;
 	border-radius: 0;
-	padding: 0.5rem 1rem;
+	padding: 0.5em 1em;
 	outline: none;
 }
 select:hover {
@@ -173,8 +183,8 @@ select:hover {
 	border-right: 3px solid black;
 	border-bottom: 3px solid black;
 	content: '';
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 1.5em;
+	height: 1.5em;
 	display: block;
 	z-index: 10;
 	transform: rotate(45deg);

@@ -132,7 +132,7 @@
             <canvas class="input-video" bind:this={inputCanvas}></canvas>
         </div>
         <div>
-            <p style="padding: 1rem;">&nbsp;</p>
+            <p style="padding: 1em;">&nbsp;</p>
         </div>
 
     </section>
