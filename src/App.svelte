@@ -35,6 +35,11 @@
 		width: 100vw;
 		height: 100vh;
 	}
+	@media (orientation: portrait) {
+		nav {
+			flex-direction: column;
+		}
+	}
 	nav > div {
 		flex: 1;
 		display: flex;
