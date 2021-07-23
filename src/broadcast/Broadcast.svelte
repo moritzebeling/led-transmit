@@ -9,7 +9,8 @@
 
     let isSelected = false;
     let isBroadcasting = false;
-    let isStarted = false;
+    let hasStarted = false;
+    let hasEnded = false;
 
     let interval, image,
         inputCanvas, inputCtx, inputImageData, inputData,
@@ -104,6 +105,10 @@
             outputCtx.putImageData(outputImageData, 0, 0);
 
             i += 4;
+            if( i > outputData.length ){
+                clearInterval( interval );
+                hasEnded = true;
+            }
         }, 100);
     }
 
@@ -112,8 +117,9 @@
     */
 
     function play(){
-        isStarted = true;
+        hasStarted = true;
         isBroadcasting = true;
+        hasEnded = false;
     
         inputImageData = inputCtx.getImageData(0, 0, config.width, config.height);
         inputData = inputImageData.data;
@@ -133,7 +139,7 @@
     function reset(){
         i = 0;
         outputCtx.clearRect(0, 0, config.width, config.height);
-        isStarted = false;
+        hasStarted = false;
         r = 0;
         g = 0;
         b = 0;
@@ -186,14 +192,16 @@
             </div>
             <div>
                 {#if !isBroadcasting}
-                    <button on:click={play}>
-                        {#if isStarted}
-                            Resume
-                        {:else}
-                            Transmit
-                        {/if}
-                    </button>
-                    {#if isStarted}
+                    {#if !hasEnded}
+                        <button on:click={play}>
+                            {#if hasStarted}
+                                Resume
+                            {:else}
+                                Transmit
+                            {/if}
+                        </button>
+                    {/if}
+                    {#if hasStarted}
                         <button on:click={reset}>Reset</button>
                     {/if}
                 {:else}

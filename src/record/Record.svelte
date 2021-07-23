@@ -12,7 +12,8 @@
         outputCanvas, outputCtx, outputImageData, outputData;
 
     let isRecording = false;
-    let isStarted = false;
+    let hasStarted = false;
+    let hasEnded = false;
 
     let r = 0;
     let g = 0;
@@ -73,7 +74,12 @@
         pixel();
         setTimeout(tick, config.interval);
         if( isRecording ){
-            record();
+            if( i < outputData.length * 4 ){
+                record();
+            } else {
+                pause();
+                hasEnded = true;
+            }
         }
     }
 
@@ -132,13 +138,14 @@
 
     function play(){
         isRecording = true;
-        isStarted = true;
+        hasStarted = true;
+        hasEnded = false;
     }
     function pause(){
         isRecording = false;
     }
     function reset(){
-        isStarted = false;
+        hasStarted = false;
         i = 0;
         outputCtx.clearRect(0, 0, config.width, config.height);
     }
@@ -179,14 +186,16 @@
             {#if isRecording}
                 <button on:click={pause}>Stop</button>
             {:else}
-                <button on:click={play}>
-                    {#if isStarted}
-                        Resume
-                    {:else}
-                        Record
-                    {/if}
-                </button>
-                {#if isStarted}
+                {#if !hasEnded}
+                    <button on:click={play}>
+                        {#if hasStarted}
+                            Resume
+                        {:else}
+                            Record
+                        {/if}
+                    </button>
+                {/if}
+                {#if hasStarted}
                     <button on:click={reset}>Reset</button>
                 {/if}
             {/if}
